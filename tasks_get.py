@@ -22,3 +22,9 @@ for element in response["tasks"]:
 	tasks_id.append(element["id"])
 
 print(tasks_id)	
+
+print(bx24.callMethod('tasks.task.history.list', 
+	taskId = 3, 
+	filter={'field': 'time_spent_in_logs'}, 
+	select =['name', 'lastname', 'createdDate', 'value']))
+
