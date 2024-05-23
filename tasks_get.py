@@ -11,8 +11,6 @@ response = bx24.callMethod("tasks.task.list",
     filter={'GROUP_ID': 1},
 	select=['ID'])
 
-print(response)
-print(response["tasks"])
 
 # Достали все id задач
 
@@ -23,8 +21,15 @@ for element in response["tasks"]:
 
 print(tasks_id)	
 
-print(bx24.callMethod('tasks.task.history.list', 
+task_records = bx24.callMethod('tasks.task.history.list', 
 	taskId = 3, 
 	filter={'field': 'time_spent_in_logs'}, 
-	select =['name', 'lastname', 'createdDate', 'value']))
+	select =['name', 'lastName', 'createdDate', 'value'])["list"]
+
+
+
+for task_record in task_records:
+	print(task_record["user"]["name"], ' ',task_record["user"]["lastName"], " ", task_record["createdDate"], task_record["value"]["to"]   )
+	print("\n")
+
 
