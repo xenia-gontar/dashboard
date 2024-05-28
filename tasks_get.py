@@ -32,8 +32,14 @@ for task_record in task_records:
 	print(task_record["user"]["name"], ' ',task_record["user"]["lastName"], " ", task_record["createdDate"], task_record["value"]["to"]   )
 	print("\n")
 
-result = bx24.callMethod('task.elapseditem.getlist', order = {"USER_ID": "desc"}, filter = {"USER_ID" : 1, ">CREATED_DATE": '2024-05-28'})
+result = bx24.callMethod('task.elapseditem.getlist', order = {"USER_ID": "desc"}, filter = {"USER_ID" : 1, ">CREATED_DATE": '2024-05-28'}, select =["TASK_ID", "MINUTES"])
+
 
 print(result)
+print("\n")
+
+for record in result:
+	print(bx24.callMethod("tasks.task.get", taskId = record["TASK_ID"], select=['GROUP_ID'])["task"]["group"]["name"])
+	print("\n")
 
 
