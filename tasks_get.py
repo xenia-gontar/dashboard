@@ -38,8 +38,18 @@ result = bx24.callMethod('task.elapseditem.getlist', order = {"USER_ID": "desc"}
 print(result)
 print("\n")
 
+
 for record in result:
-	print(bx24.callMethod("tasks.task.get", taskId = record["TASK_ID"], select=['GROUP_ID'])["task"]["group"]["name"])
-	print("\n")
+	group_name = bx24.callMethod("tasks.task.get", taskId = record["TASK_ID"], select=['GROUP_ID'])["task"]["group"]["name"]
+	print(group_name)
+	time = int(record["MINUTES"])
+
+	if group_name in hours_in_group:
+		hours_in_group[group_name] = hours_in_group[group_name] + time
+	else:
+		hours_in_group[group_name] = time
+
+	print(hours_in_group)
+	
 
 
